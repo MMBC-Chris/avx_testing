@@ -1,30 +1,35 @@
 CPPSRC		=	main.cpp
 ASMSRC		=	avx.s
-CPPAS 		=	$(CPPSRC:.cpp=.S)
+CSRC		=	align.c
 CPPOBJ		=	$(CPPSRC:.cpp=.o)
 ASMOBJ		=	$(ASMSRC:.s=.o)
+COBJ		=	$(CSRC:.c=.o)
 NAME		=	avx_test
+CFLAGS		=	-Wall -Wextra -std=c11
 CPPFLAGS	=	-Wall -Wextra -std=c++17
 ASMFLAGS	=	-felf64
-CNAFLAGS	=	-Wall -Wextra -mno-red-zone -fno-asynchronous-unwind-tables -S
 LDFLAGS		=	
-CC			=	g++
+CC			=	gcc
+CPPC		=	g++
 AS			=	nasm
 LD			=	g++
 
 all: $(NAME)
 
-$(NAME): $(CPPOBJ) $(ASMOBJ)
+$(NAME): $(CPPOBJ) $(ASMOBJ) $(COBJ)
 	$(LD) -o $@ $^ $(LDFLAGS)
 
 %.o: %.cpp
-	$(CC) -c -o $@ $^ $(CPPFLAGS)
+	$(CPPC) -c -o $@ $^ $(CPPFLAGS)
 
 %.o: %.s
 	$(AS) -o $@ $^ $(ASMFLAGS)
 
+%.o: %.c
+	$(CC) -c -o $@ $^ $(CFLAGS)
+
 clean:
-	rm -rf $(CPPOBJ) $(ASMOBJ)
+	rm -rf $(CPPOBJ) $(ASMOBJ) $(COBJ)
 
 fclean: clean
 	rm -rf $(NAME)
