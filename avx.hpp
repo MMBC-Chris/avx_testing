@@ -2,10 +2,10 @@
 
 #include <cstdlib>
 
-int GetAVXSupportFlag(void);
+extern "C" int GetAVXSupportFlag(void);
 
-float GetVal(float *, int);
-void SetVal(float *, int, float);
+extern "C" float GetVal(float *, int);
+extern "C" void SetVal(float *, int, float);
 
 // compatible memory alignment
 extern "C" void *c_aligned_alloc(size_t, size_t, bool);

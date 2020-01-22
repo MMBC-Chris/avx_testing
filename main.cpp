@@ -15,6 +15,11 @@ float *aligned_float_alloc()
 
 int main(void)
 {
+    if (!GetAVXSupportFlag()) {
+        std::cerr << "AVX is not supported on this machine" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
     float *t1 = aligned_float_alloc();
     float *t2 = aligned_float_alloc();
     float *t3 = aligned_float_alloc();
