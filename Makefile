@@ -7,12 +7,20 @@ COBJ		=	$(CSRC:.c=.o)
 NAME		=	avx_test
 CFLAGS		=	-Wall -Wextra -std=c11
 CPPFLAGS	=	-Wall -Wextra -std=c++17
-ASMFLAGS	=	-felf64
+ASMFLAGS	=	
 LDFLAGS		=	
 CC			=	gcc
 CPPC		=	g++
 AS			=	nasm
 LD			=	g++
+
+UNAME_S = $(shell uname -s)
+ifeq ($(UNAME_S), Linux)
+	ASMFLAGS += -felf64
+endif
+ifeq ($(UNAME_S), Darwin)
+	ASMFLAGS += -fmacho64
+endif
 
 all: $(NAME)
 

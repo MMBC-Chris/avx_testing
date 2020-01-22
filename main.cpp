@@ -30,8 +30,14 @@ int main(void)
             std::cout << " ";
     }
     std::cout << std::endl;
+#ifdef _GLIBCXX_HAVE_ALIGNED_ALLOC
     delete t1;
     delete t2;
     delete t3;
+#else
+    c_aligned_free(t1);
+    c_aligned_free(t2);
+    c_aligned_free(t3);
+#endif
     return 0;
 }

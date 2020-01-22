@@ -1,11 +1,11 @@
-    global _Z17GetAVXSupportFlagv
-    global _Z6GetValPfi
-    global _Z6SetValPfif
-    global _Z12NonAVXAddTabPfS_S_
-    global _Z9AVXAddTabPfS_S_
+    global GetAVXSupportFlag
+    global GetVal
+    global SetVal
+    global NonAVXAddTab
+    global AVXAddTab
 
     section .text
-_Z17GetAVXSupportFlagv:
+GetAVXSupportFlag:
     mov rax, 1
     cpuid
     xor rax, rax
@@ -13,36 +13,36 @@ _Z17GetAVXSupportFlagv:
     adc rax, rax
     ret
 
-_Z6GetValPfi:
+GetVal:
     cmp esi, 0
-    jge _Z6GetValPfi_CV
+    jge GetVal_CV
     xor rsi, rsi
-_Z6GetValPfi_CV:
+GetVal_CV:
     movss xmm0, [rdi + rsi*4]
     ret
 
-_Z6SetValPfif:
+SetVal:
     cmp esi, 0
-    jge _Z6SetValPfif_CV
+    jge SetVal_CV
     xor rsi, rsi
-_Z6SetValPfif_CV:
+SetVal_CV:
     movss [rdi + rsi*4], xmm0
     ret
 
-_Z12NonAVXAddTabPfS_S_:
+NonAVXAddTab:
     xor rbx, rbx
-_Z12NonAVXAddTabPfS_S__LB:
+NonAVXAddTab_LB:
     cmp rbx, 8
-    je _Z12NonAVXAddTabPfS_S__LE
+    je NonAVXAddTab_LE
     movss xmm1, [rdi + rbx*4]
     vaddss xmm0, xmm1, [rsi + rbx*4]
     movss [rdx + rbx*4], xmm0
     inc rbx
-    jmp _Z12NonAVXAddTabPfS_S__LB
-_Z12NonAVXAddTabPfS_S__LE:
+    jmp NonAVXAddTab_LB
+NonAVXAddTab_LE:
     ret
 
-_Z9AVXAddTabPfS_S_:
+AVXAddTab:
     vmovaps ymm1, [rdi]
     vaddps ymm0, ymm1, [rsi]
     vmovaps [rdx], ymm0

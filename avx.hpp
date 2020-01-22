@@ -12,5 +12,5 @@ extern "C" void *c_aligned_alloc(size_t, size_t, bool);
 extern "C" void c_aligned_free(void *);
 
 // now we get into the spicy stuff
-void NonAVXAddTab(float *, float *, float *);
-void AVXAddTab(float *, float *, float *);
+extern "C" void NonAVXAddTab(float *, float *, float *);
+extern "C" void AVXAddTab(float *, float *, float *);
