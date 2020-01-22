@@ -7,7 +7,7 @@ float *aligned_float_alloc()
 #ifdef _GLIBCXX_HAVE_ALIGNED_ALLOC
     float *t = static_cast<float *>(std::aligned_alloc(32, sizeof(float) * 8));
 #else
-    float *t = c_aligned_alloc(32, sizeof(float) * 8, false);
+    float *t = static_cast<float *>(c_aligned_alloc(32, sizeof(float) * 8, false));
 #endif
 
     return t;
