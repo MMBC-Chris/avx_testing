@@ -36,9 +36,9 @@ int main(void)
     }
     std::cout << std::endl;
 #ifdef _GLIBCXX_HAVE_ALIGNED_ALLOC
-    delete t1;
-    delete t2;
-    delete t3;
+    std::free(t1);
+    std::free(t2);
+    std::free(t3);
 #else
     c_aligned_free(t1);
     c_aligned_free(t2);
